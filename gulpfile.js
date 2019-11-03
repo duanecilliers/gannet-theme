@@ -1,24 +1,16 @@
+'use strict'
+
 var gulp = require('gulp')
-var browserSync = require('browser-sync').create()
 var sass = require('gulp-sass')
 
-// Static Server + watching scss/html files
-gulp.task('serve', ['sass'], function () {
+sass.compiler = require('node-sass')
 
-    browserSync.init({
-        server: "./"
-    })
-
-    gulp.watch("sass/*.scss", ['sass'])
-    gulp.watch("*.php").on('change', browserSync.reload)
-})
-
-// Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function () {
-    return gulp.src("sass/*.scss")
-        .pipe(sass())
-        .pipe(gulp.dest("./"))
-        .pipe(browserSync.stream())
+    return gulp.src('./sass/**/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./'))
 })
 
-gulp.task('default', ['serve'])
+gulp.task('sass:watch', function () {
+    gulp.watch('./sass/**/*.scss', ['sass'])
+})
