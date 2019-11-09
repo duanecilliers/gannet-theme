@@ -1,0 +1,7 @@
+.site-header {
+    border-top-width: 4px;
+    border-top-color: theme('colors.blue.500');
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-bottom-color: theme('colors.gray.300');
+}
