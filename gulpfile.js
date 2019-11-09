@@ -14,7 +14,7 @@ gulp.task('serve', function () {
 })
 
 gulp.task('css', () => {
-    return gulp.src('css/**/*.css')
+    return gulp.src('css/index.css')
         .pipe(sourcemaps.init())
         .pipe(postcss([
             require('postcss-import'),
@@ -24,4 +24,5 @@ gulp.task('css', () => {
         ]))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('build/'))
+        .pipe(browserSync.stream())
 })
