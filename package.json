@@ -8,8 +8,12 @@
     "serve": "gulp serve"
   },
   "devDependencies": {
+    "autoprefixer": "^9.7.1",
     "browser-sync": "^2.26.7",
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "precss": "^4.0.0"
   },
   "dependencies": {
     "tailwindcss": "^1.1.3"
