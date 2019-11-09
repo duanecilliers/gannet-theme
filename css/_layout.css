@@ -1,0 +1,5 @@
+.site-header,
+.site-content,
+.site-footer {
+    @apply p-4;
+}

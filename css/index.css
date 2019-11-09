@@ -6,9 +6,12 @@
 # Typography
 # Elements
 # Forms
+# Layout
+# Header
 # Navigation
 	## Links
 	## Menus
+# Content
 # Accessibility
 # Alignments
 # Clearings
@@ -46,6 +49,11 @@
 # Forms
 --------------------------------------------------------------*/
 @import '_forms';
+
+/*--------------------------------------------------------------
+# Layout
+--------------------------------------------------------------*/
+@import '_layout';
 
 /*--------------------------------------------------------------
 # Navigation
