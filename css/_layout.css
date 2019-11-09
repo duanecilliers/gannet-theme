@@ -7,3 +7,11 @@ body {
 .site-footer {
     @apply p-4;
 }
+
+@screen md {
+    .site-header,
+    .site-content,
+    .site-footer {
+        @apply p-6;
+    }
+}
