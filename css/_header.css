@@ -4,4 +4,22 @@
     border-bottom-width: 1px;
     border-style: solid;
     border-bottom-color: theme('colors.gray.300');
+
+    .site-title {
+        font-size: theme('fontSize.2xl');
+        font-weight: theme('fontWeight.bold');
+        text-transform: uppercase;
+        @apply tracking-wide leading-tight;
+
+        a {
+            @apply text-gray-800;
+        }
+    }
+
+    .site-description {
+        font-family: theme('fontFamily.serif');
+        font-style: italic;
+        font-size: theme('fontSize.sm');
+        color: theme('colors.blue.500')
+    }
 }
