@@ -12,4 +12,8 @@ a {
   &:focus {
     outline: thin dotted;
   }
+
+  &:visited {
+    color: theme('colors.purple.500');
+  }
 }
