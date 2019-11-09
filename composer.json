@@ -1,0 +1,11 @@
+{
+    "name": "wpvanguard/gannet",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Duane Cilliers",
+            "email": "hello@duane.co.za"
+        }
+    ],
+    "require": {}
+}
