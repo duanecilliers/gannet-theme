@@ -1,10 +1,15 @@
 a {
-  color: #55bcf7; }
-  a:visited {
-    color: #d755f7; }
-  a:hover, a:focus, a:active {
-    color: #0c9ff4; }
-  a:focus {
-    outline: thin dotted; }
-  a:hover, a:active {
-    outline: 0; }
+  color: theme('colors.blue.400');
+  outline: 0;
+  transition: 0.2s all ease-in-out; 
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: theme('colors.blue.700');
+  }
+
+  &:focus {
+    outline: thin dotted;
+  }
+}
