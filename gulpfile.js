@@ -1,22 +1,28 @@
 'use strict'
 
 var gulp = require('gulp')
-var sass = require('gulp-sass')
 var browserSync = require('browser-sync').create()
-
-sass.compiler = require('node-sass')
+const postcss = require('gulp-postcss')
+const sourcemaps = require('gulp-sourcemaps')
 
 gulp.task('serve', function () {
     browserSync.init({
-        proxy: "one.wordpress.test"
+        proxy: 'one.wordpress.test'
     });
-    gulp.watch('./sass/**/*.scss', gulp.series('sass'))
-    gulp.watch("*.php").on('change', browserSync.reload);
+    gulp.watch('css/**/*.css', gulp.series('css'))
+    gulp.watch('*.php').on('change', browserSync.reload);
 })
 
-gulp.task('sass', function () {
-    return gulp.src('./sass/**/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./'))
+gulp.task('css', () => {
+    return gulp.src('css/index.css')
+        .pipe(sourcemaps.init())
+        .pipe(postcss([
+            require('postcss-import'),
+            require('precss'),
+            require('autoprefixer'),
+            require('tailwindcss')
+        ]))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('build/'))
         .pipe(browserSync.stream())
 })

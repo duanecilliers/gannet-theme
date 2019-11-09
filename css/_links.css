@@ -1,0 +1,19 @@
+a {
+  color: theme('colors.blue.400');
+  outline: 0;
+  transition: 0.2s all ease-in-out; 
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: theme('colors.blue.700');
+  }
+
+  &:focus {
+    outline: thin dotted;
+  }
+
+  &:visited {
+    color: theme('colors.purple.500');
+  }
+}
