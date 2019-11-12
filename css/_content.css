@@ -1,0 +1,13 @@
+.content-area {
+    width: 100%;
+    @apply flex;
+    .post {
+        @apply bg-white rounded p-5;
+    }
+}
+
+@screen md {
+    .content-area .post {
+        @apply flex-initial;
+    }
+}

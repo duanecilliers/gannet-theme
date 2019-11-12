@@ -12,6 +12,6 @@ body {
     .site-header,
     .site-content,
     .site-footer {
-        @apply p-6;
+        @apply px-6;
     }
 }
