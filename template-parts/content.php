@@ -9,7 +9,7 @@
 
 ?>
 
-<div class='px-2 w-full sm:w-1/2 lg:w-1/3'>
+<div class='px-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/6'>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<header class="entry-header">
 			<?php
