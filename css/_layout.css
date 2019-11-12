@@ -8,6 +8,10 @@ body {
     @apply p-4;
 }
 
+.site-main {
+    width: 100%;
+}
+
 @screen md {
     .site-header,
     .site-content,
