@@ -1,0 +1,21 @@
+body {
+    overflow-x: hidden;
+}
+
+.site-header,
+.site-content,
+.site-footer {
+    @apply p-4;
+}
+
+.site-main {
+    width: 100%;
+}
+
+@screen md {
+    .site-header,
+    .site-content,
+    .site-footer {
+        @apply px-6;
+    }
+}

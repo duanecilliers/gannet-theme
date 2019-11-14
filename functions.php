@@ -165,3 +165,9 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/inc/woocommerce.php';
 }
+
+add_filter( 'post_class', 'gannet_post_classes', 10, 3);
+function gannet_post_classes ( $classes, $class, $post_id ) {
+	array_push( $classes, 'card' );
+	return $classes;
+}
