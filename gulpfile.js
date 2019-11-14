@@ -10,7 +10,7 @@ gulp.task('serve', function () {
         proxy: 'one.wordpress.test'
     });
     gulp.watch('css/**/*.css', gulp.series('css'))
-    gulp.watch('*.php').on('change', browserSync.reload);
+    gulp.watch('(*.php|**/*.twig)').on('change', browserSync.reload);
 })
 
 gulp.task('css', () => {
