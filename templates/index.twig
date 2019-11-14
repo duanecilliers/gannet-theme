@@ -7,5 +7,6 @@
                 {% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
             {% endfor %}
         </div>
+        {{ fn('the_posts_navigation') }}
     {% endif %}
 {% endblock %}
