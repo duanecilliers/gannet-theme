@@ -1,0 +1,63 @@
+{% block html_head_container %}
+
+{% include 'html-header.twig' %}
+	{% block head %}
+	{% endblock %}
+	</head>
+{% endblock %}
+
+	<body class="{{body_class}}" data-template="base.twig">
+        <div id="page" class="site">
+            <a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content' ) }}</a>
+
+            <header id="masthead" class="site-header">
+                {% block header %}
+                    <div class="site-branding">
+                        {{ fn('the_custom_logo') }}
+                        {% set home_url = fn('esc_url', fn('home_url', '/')) %}
+                        {% if is_front_page and is_home %}
+                            <h1 class="site-title">
+                                <a href="{{ home_url }}" rel="home">{{ fn('bloginfo', 'name') }}</a>
+                            </h1>
+                        {% else %}
+                            <p class="site-title">
+                                <a href="{{ home_url }}" rel="home">{{ fn('bloginfo', 'name') }}</a>
+                            </p>
+                        {% endif %}
+
+                        {% set description = fn('get_bloginfo', 'description', 'display') %}
+                        {% if description or fn('is_customize_preview') %}
+                            <p class="site-description">{{ description }}</p>
+                        {% endif %}
+                    </div><!-- .site-branding -->
+
+                    <nav id="site-navigation" class="main-navigation">
+                        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+                            {{ fn('esc_html_e', 'Primary Menu', 'gannet' ) }}
+                        </button>
+                        {{ fn('wp_nav_menu', {'theme_location': 'menu-1', 'menu_id': 'primary-menu'}) }}
+                    </nav><!-- #site-navigation -->
+                {% endblock %}
+            </header><!-- #masthead -->
+
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    {% block content %}
+                        Sorry, no content
+                    {% endblock %}
+                </div><!-- #main -->
+            </div><!-- #primary -->
+
+            {% if sidebar %}
+                {{sidebar}}
+			{% endif %}
+
+            {% block footer %}
+                <footer id="footer">
+                    {% include 'footer.twig' %}
+                </footer>
+                {{ function('wp_footer') }}
+            {% endblock %}
+        </div>
+	</body>
+</html>

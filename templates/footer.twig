@@ -1,0 +1,10 @@
+<footer id="colophon" class="site-footer">
+    <div class="site-info">
+        {% set wordpress_url = fn('esc_url', 'https://wordpress.org') %}
+        <a href="{{ wordpress_url }}">
+            {{ fn('sprintf', fn('esc_html__', 'Proudly powered by %s', 'gannet'), 'WordPress') }}
+        </a>
+        <span class="sep"> | </span>
+        {{ fn('sprintf', fn('esc_html__', 'Theme: %1$s by %2$s.', 'gannet'), 'gannet', '<a href="#">WPVanguard</a>') }}
+    </div><!-- .site-info -->
+</footer><!-- #colophon -->
