@@ -1,7 +1,8 @@
 {
     "name": "duane/gannet",
     "require": {
-        "timber/timber": "^1.12"
+        "timber/timber": "^1.12",
+        "hellonico/timber-dump-extension": "^1.0"
     },
     "authors": [
         {
