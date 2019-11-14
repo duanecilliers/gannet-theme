@@ -1,0 +1,12 @@
+{
+    "name": "duane/gannet",
+    "require": {
+        "timber/timber": "^1.12"
+    },
+    "authors": [
+        {
+            "name": "Duane Cilliers",
+            "email": "hello@duane.co.za"
+        }
+    ]
+}
