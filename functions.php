@@ -7,6 +7,31 @@
  * @package Gannet
  */
 
+/**
+ * Helper function for prettying up errors
+ * @param string $message
+ * @param string $subtitle
+ * @param string $title
+ */
+$gannet_error = function ($message, $subtitle = '', $title = '') {
+    $title = $title ?: __('Sage &rsaquo; Error', 'sage');
+    $footer = '@todo link to docs';
+    $message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p><p>{$footer}</p>";
+    wp_die($message, $title);
+};
+
+if ( !file_exists( $composer = __DIR__.'/vendor/autoload.php' ) ) {
+	$gannet_error(
+		__( 'You must run <code>composer install</code> from the Sage directory.', 'gannet' ),
+		__( 'Autoloader not found.', 'gannet' )
+	);
+}
+
+require_once( __DIR__ . '/vendor/autoload.php' );
+$timber = new Timber\Timber();
+
+Timber::$dirname = array( 'templates', 'views' );
+
 if ( ! function_exists( 'gannet_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
