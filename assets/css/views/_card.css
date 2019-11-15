@@ -1,5 +1,41 @@
 .card {
     border-width: 1px;
     border-style: solid;
-    @apply bg-white rounded p-5 border-gray-400;
+    @apply bg-white rounded-sm border-gray-400 shadow-md;
+    transition: 0.2s all ease-in-out;
+    
+    &:hover {
+        @apply shadow-lg;
+    }
+
+    .card-header,
+    .card-content {
+        @apply p-5;
+        padding-bottom: 0;
+        transition: 0.2s all ease-in-out;
+    }
+
+    .card-title {
+        @apply leading-tight text-xl font-semibold text-gray-800;
+    }
+
+    .card-meta {
+        @apply italic text-sm text-gray-700 m-0;
+    }
+
+    .card-content {
+        @apply text-sm text-gray-700;
+    }
+
+    > a {
+        &:hover,
+        &:focus {
+            @apply shadow-lg text-gray-800;
+
+            .card-header,
+            .card-content {
+                @apply text-gray-900;
+            }
+        }
+    }
 }
