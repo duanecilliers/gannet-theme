@@ -1,7 +1,7 @@
 .card {
     border-width: 1px;
     border-style: solid;
-    @apply bg-white rounded-sm border-gray-400 shadow-md;
+    @apply bg-white rounded-sm border-gray-400 shadow-md break-words;
     transition: 0.2s all ease-in-out;
     
     &:hover {
