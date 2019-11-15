@@ -7,6 +7,6 @@
                 {% include ['partials/tease-'~post.post_type~'.twig', 'partials/tease.twig'] %}
             {% endfor %}
         </div>
-        {{ fn('the_posts_navigation') }}
+        {% include 'partials/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
     {% endif %}
 {% endblock %}
