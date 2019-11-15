@@ -25,6 +25,10 @@
 
     .card-content {
         @apply text-sm text-gray-700;
+
+        .read-more {
+            @apply block mt-2 text-base;
+        }
     }
 
     > a {
