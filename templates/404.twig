@@ -1,0 +1,19 @@
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="error-404 not-found card">
+        <header class="page-header">
+            <h1 class="page-title">
+                {{ fn('esc_html_e', 'Oops! That page can\'t be found', 'gannet') }}
+            </h1>
+        </header><!-- .page-header -->
+
+        <div class="page-content">
+            <p>
+                {{ fn('esc_html_e', 'It looks like nothing was found at this location. Maybe try a search?', 'gannet') }}
+            </p>
+
+            {{ fn('get_search_form') }}
+        </div>
+    </section>
+{% endblock %}
