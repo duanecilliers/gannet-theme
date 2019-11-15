@@ -6,12 +6,14 @@ Gannet is a minimalistic WordPress theme designed for photography or portfolio w
 
 # Dependencies
 - Node: only tested with v12.4.0 - use [NVM](https://github.com/nvm-sh/nvm) to manage multiple Node versions
+- [Composer](https://getcomposer.org/)
 - [Yarn](https://yarnpkg.com/lang/en/)
 - [VVV](https://varyingvagrantvagrants.org/) - Other development environments not supported, please figure that out yourself if you don't want to use VVV.
 
 ## Getting Started
 
 1. Clone this repo. `git clone https://github.com/duanecilliers/gannet-theme /path/to/vvv/www/wordpress-one/public_html/wp-content/themes/gannet`
+1. Run `composer install`
 1. Run `nvm use` to use supported node version or manually install v12.4.0. Older versions might work, but no guarantees.
 1. Run `yarn install` to install local dependencies
 1. Run `yarn serve` to watch sass files and serve `one.wordpress.test`. Assumes use with [VVV](https://varyingvagrantvagrants.org/).
