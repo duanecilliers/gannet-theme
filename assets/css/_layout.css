@@ -3,7 +3,7 @@ body {
 }
 
 .site-header,
-.site-content,
+.content-area,
 .site-footer {
     @apply p-4;
 }
@@ -14,7 +14,7 @@ body {
 
 @screen md {
     .site-header,
-    .site-content,
+    .content-area,
     .site-footer {
         @apply px-6;
     }

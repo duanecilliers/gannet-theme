@@ -1,0 +1,40 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <article class="{{ post.class }} card" id="post-{{ post.ID }}">
+        <img src="{{ post.thumbnail.src|resize(1200, 300) }}">
+        <section class="article-content">
+            <h1 class="article-h1">{{ post.title }}</h1>
+            {# <a href="{{ post.link }}">{{ _e('edit') }}</a> #}
+            <p class="blog-author">
+                <span>By</span><a href="{{post.author.path}}"> {{ post.author.name }} </a><span>&bull;</span> {{ post.date }}
+            </p>
+            <div class="article-body">
+                {{post.content}}
+            </div>
+        </section>
+
+        {% block comments %}
+            <!-- comment box -->
+            <section id="comments" class="comments-area">
+                <h2 class="comments-title">{{ comments_title }}</h2>
+                {{ comments_navigation }}
+                <!-- comments -->
+                <ol class="comment-list">
+                    {% if post.comments %}
+                        {% for cmt in post.comments %}
+                            {% include "comment.twig" with {comment:cmt} %}
+                        {% endfor %}
+                    {% endif %}
+                </ol><!-- .comment-list -->
+
+                {% if post.comment_status == "closed" %}
+                    <p class="no-comments">{{ fn('esc_html_e', 'Comments are closed.', 'gannet') }}</p>
+                {% else %}
+                    <!-- comment form -->
+                    {% include "comment-form.twig" %}
+                {% endif %}
+            </section>
+        {% endblock %}
+    </article>
+{% endblock %}

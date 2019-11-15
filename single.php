@@ -7,31 +7,34 @@
  * @package Gannet
  */
 
-get_header();
-?>
+$context         = Timber::context();
+$timber_post     = Timber::query_post();
+$comment_count = $timber_post->comment_count;
+$context['post'] = $timber_post;
+$context['comments_navigation'] = get_the_comments_navigation();
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
+if ($comment_count === '1') {
+	$context['comments_title'] = sprintf(
+		/* translators: 1: title. */
+		esc_html__( 'One thought on &ldquo;%1$s&rdquo;', 'gannet' ),
+		'<span>' . get_the_title() . '</span>'
+	);
+} else {
+	$context['comments_title'] = sprintf( // WPCS: XSS OK.
+		/* translators: 1: comment count number, 2: title. */
+		esc_html( _nx( '%1$s thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', $comment_count, 'comments title', 'gannet' ) ),
+		number_format_i18n( $comment_count ),
+		'<span>' . get_the_title() . '</span>'
+	);
+}
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
-
-			get_template_part( 'template-parts/content', get_post_type() );
-
-			the_post_navigation();
-
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
-
-		endwhile; // End of the loop.
-		?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
-
-<?php
-get_sidebar();
-get_footer();
+if ( post_password_required( $timber_post->ID ) ) {
+	Timber::render( 'single-password.twig', $context );
+} else {
+	Timber::render( array(
+		'single-' . $timber_post->ID . '.twig',
+		'single-' . $timber_post->post_type . '.twig',
+		'single-' . $timber_post->slug . '.twig',
+		'single.twig'
+	), $context );
+}

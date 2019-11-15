@@ -1,0 +1,15 @@
+{# {{dump(post)}} #}
+{{ 
+    fn(
+        'edit_post_link',
+        fn('sprintf',
+            fn('wp_kses',
+                fn('__', 'Edit <span class="screen-reader-text">%s</span>', 'gannet'),
+                { 'span': { 'class': ['testing'] } }
+            ),
+            fn('get_the_title')
+        ),
+        '<span class="edit-link">',
+        '</span>'
+    )
+}}

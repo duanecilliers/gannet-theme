@@ -9,12 +9,12 @@ gulp.task('serve', function () {
     browserSync.init({
         proxy: 'one.wordpress.test'
     });
-    gulp.watch('css/**/*.css', gulp.series('css'))
-    gulp.watch('*.php').on('change', browserSync.reload);
+    gulp.watch('assets/css/**/*.css', gulp.series('css'))
+    gulp.watch('(*.php|**/*.twig)').on('change', browserSync.reload);
 })
 
 gulp.task('css', () => {
-    return gulp.src('css/index.css')
+    return gulp.src('assets/css/index.css')
         .pipe(sourcemaps.init())
         .pipe(postcss([
             require('postcss-import'),

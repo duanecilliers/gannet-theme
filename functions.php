@@ -7,6 +7,31 @@
  * @package Gannet
  */
 
+/**
+ * Helper function for prettying up errors
+ * @param string $message
+ * @param string $subtitle
+ * @param string $title
+ */
+$gannet_error = function ($message, $subtitle = '', $title = '') {
+    $title = $title ?: __('Sage &rsaquo; Error', 'sage');
+    $footer = '@todo link to docs';
+    $message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p><p>{$footer}</p>";
+    wp_die($message, $title);
+};
+
+if ( !file_exists( $composer = __DIR__.'/vendor/autoload.php' ) ) {
+	$gannet_error(
+		__( 'You must run <code>composer install</code> from the Sage directory.', 'gannet' ),
+		__( 'Autoloader not found.', 'gannet' )
+	);
+}
+
+require_once( __DIR__ . '/vendor/autoload.php' );
+$timber = new Timber\Timber();
+
+Timber::$dirname = array( 'templates', 'views' );
+
 if ( ! function_exists( 'gannet_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
@@ -122,9 +147,9 @@ add_action( 'widgets_init', 'gannet_widgets_init' );
 function gannet_scripts() {
 	wp_enqueue_style( 'gannet-style', get_template_directory_uri() . '/build/index.css' );
 
-	wp_enqueue_script( 'gannet-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	wp_enqueue_script( 'gannet-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), '20151215', true );
 
-	wp_enqueue_script( 'gannet-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_script( 'gannet-skip-link-focus-fix', get_template_directory_uri() . '/assets/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
