@@ -13,7 +13,7 @@
     }
 
     .card-audio {
-        @apply bg-blue-300 p-5;
+        @apply bg-blue-300 p-4;
     }
 
     .card-header,

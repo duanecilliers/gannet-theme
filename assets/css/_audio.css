@@ -1,0 +1,15 @@
+.mejs-container, .mejs-embed, .mejs-embed body, .mejs-container .mejs-controls {
+    @apply bg-gray-900 px-1 shadow-lg !important;
+
+    .mejs-playpause-button,
+    .mejs-duration-container {
+        border-right-width: 1px;
+        @apply border-black border-solid;
+    }
+
+    .mejs-currenttime-container,
+    .mejs-volume-button {
+        border-left-width: 1px;
+        @apply border-gray-800 border-solid;
+    }
+}
