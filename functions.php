@@ -87,6 +87,13 @@ if ( ! function_exists( 'gannet_setup' ) ) :
 			'caption',
 		) );
 
+		/**
+		 * Post format support
+		 */
+		add_theme_support( 'post-formats', [
+			'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat'
+		]);
+
 		// Set up the WordPress core custom background feature.
 		add_theme_support( 'custom-background', apply_filters( 'gannet_custom_background_args', array(
 			'default-color' => 'ffffff',
