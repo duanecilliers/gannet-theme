@@ -8,6 +8,8 @@ class GannetPost extends Timber\Post {
 
     public $_first_link;
 
+    public $_image;
+
     public $_first_video;
     
     public function format() {
@@ -25,16 +27,18 @@ class GannetPost extends Timber\Post {
     }
 
     public function gallery_preview() {
-        $gallery = $this->first_gallery();
         $preview = [];
-        if ( count( $gallery['src'] ) > 0 ) {
-            $preview = array_slice( $gallery['src'], 0, 5 );
+        if ( $this->format() === 'gallery' ) {
+            $gallery = $this->first_gallery();
+            if ( count( $gallery['src'] ) > 0 ) {
+                $preview = array_slice( $gallery['src'], 0, 5 );
+            }
         }
         return $preview;
     }
 
     public function first_link() {
-        if ( !$this->_first_link ) {
+        if ( !$this->_first_link && $this->format() === 'link' ) {
             preg_match( '/<a[\s]+([^>]+)>((?:.(?!\<\/a\>))*.)<\/a>/', $this->post_content, $matches );
             if ( count( $matches ) > 0 ) {
                 $this->_first_link = $matches[0];
@@ -48,6 +52,20 @@ class GannetPost extends Timber\Post {
             }
         }
         return $this->_first_link;
+    }
+
+    public function image() {
+        if ( !$this->_image ) {
+            if ($this->thumbnail) {
+                $this->_image = '<img src="'. $this->thumbnail->src .'" alt="'. $this->title .'" />';
+            } else {
+                preg_match( '/<img.*?src="(.*?)"[^\>]+>/', $this->post_content, $img_matches );
+                if ( count( $img_matches ) > 0 ) {
+                    return $img_matches[0];
+                }
+            }
+        }
+        return $this->_image;
     }
 
     public function first_video() {
