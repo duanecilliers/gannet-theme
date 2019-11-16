@@ -6,6 +6,8 @@ class GannetPost extends Timber\Post {
 
     public $_first_gallery;
 
+    public $_first_link;
+
     public $_first_video;
     
     public function format() {
@@ -29,6 +31,23 @@ class GannetPost extends Timber\Post {
             $preview = array_slice( $gallery['src'], 0, 5 );
         }
         return $preview;
+    }
+
+    public function first_link() {
+        if ( !$this->_first_link ) {
+            preg_match( '/<a[\s]+([^>]+)>((?:.(?!\<\/a\>))*.)<\/a>/', $this->post_content, $matches );
+            if ( count( $matches ) > 0 ) {
+                $this->_first_link = $matches[0];
+            } else {
+                preg_match( '/@^(https?|ftp)://[^\s/$.?#].[^\s]*$@iS/', $this->post_content, $url_matches );
+                if ( count( $url_matches ) > 0 ) {
+                    $this->_first_link = '<a href="'. $url_matches[0] .'">' . $this->title . '</a>';
+                } else {
+                    $this->_first_link = '<a href="' . $this->content . '">' . $this->title . '</a>';
+                }
+            }
+        }
+        return $this->_first_link;
     }
 
     public function first_video() {
