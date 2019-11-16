@@ -12,6 +12,10 @@
         position: relative;
     }
 
+    .card-audio {
+        @apply bg-blue-300 p-5;
+    }
+
     .card-header,
     .card-content {
         @apply p-5;

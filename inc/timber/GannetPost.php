@@ -10,6 +10,8 @@ class GannetPost extends Timber\Post {
 
     public $_image;
 
+    public $_first_audio;
+
     public $_first_video;
     
     public function format() {
@@ -66,6 +68,58 @@ class GannetPost extends Timber\Post {
             }
         }
         return $this->_image;
+    }
+
+    public function first_audio() {
+        if ( !$this->_first_audio && $this->format() === 'audio' ) {
+            global $shortcode_tags;
+            // Make a copy of global shortcode tags - we'll temporarily overwrite it.
+            $theme_shortcode_tags = $shortcode_tags;
+
+            // The shortcodes we're interested in.
+            $shortcode_tags = ['audio' => $theme_shortcode_tags['audio']];
+            // Get the absurd shortcode regexp.
+            $audio_regex = '#' . get_shortcode_regex() . '#i';
+
+            // Restore global shortcode tags.
+            $shortcode_tags = $theme_shortcode_tags;
+
+            $pattern_array = array( $audio_regex );
+
+            // Get the patterns from the embed object.
+            if ( ! function_exists( '_wp_oembed_get_object' ) ) {
+                include ABSPATH . WPINC . '/class-oembed.php';
+            }
+            $oembed = _wp_oembed_get_object();
+            $pattern_array = array_merge( $pattern_array, array_keys( $oembed->providers ) );
+
+            // Or all the patterns together.
+            $pattern = '#(' . array_reduce( $pattern_array, function ( $carry, $item ) {
+                if ( strpos( $item, '#' ) === 0 ) {
+                    // Assuming '#...#i' regexps.
+                    $item = substr( $item, 1, -2 );
+                } else {
+                    // Assuming glob patterns.
+                    $item = str_replace( '*', '(.+)', $item );
+                }
+                return $carry ? $carry . ')|('  . $item : $item;
+            } ) . ')#is';
+
+            // Simplistic parse of content line by line.
+            $lines = explode( "\n", $this->post_content );
+            foreach ( $lines as $line ) {
+                $line = trim( $line );
+                if ( preg_match( $pattern, $line, $matches ) ) {
+                    if ( strpos( $matches[0], '[' ) === 0 ) {
+                        $ret = do_shortcode( $matches[0] );
+                    } else {
+                        $ret = wp_oembed_get( $matches[0] );
+                    }
+                    $this->_first_audio = $ret;
+                }
+            }
+        }
+        return $this->_first_audio;
     }
 
     public function first_video() {
