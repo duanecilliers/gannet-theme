@@ -1,11 +1,13 @@
 {% extends "partials/tease.twig" %}
 
 {% block content %}
-	{% if post.thumbnail.src %}
-		<div class="card-thumbnail">
-			<img src="{{post.thumbnail.src}}" />
-		</div>
-	{% endif %}
+	{% block post_thumbnail %}
+		{% if post.thumbnail.src %}
+			<div class="card-thumbnail">
+				<img src="{{post.thumbnail.src}}" />
+			</div>
+		{% endif %}
+	{% endblock %}
 	<header class="card-header">
 		<a href="{{post.link}}"><h2 class="card-title">{{post.title}}</h2></a>
 		<p class="card-meta">{{post.date}} | <a href="{{post.link}}#comments">{{post.comment_count}} comments</a></p>
