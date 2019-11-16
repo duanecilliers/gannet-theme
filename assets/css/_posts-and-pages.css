@@ -23,12 +23,27 @@
 .blog {
   .content-area {
     .post.format-aside {
-      @apply bg-orange-400;
+      @apply bg-orange-400 border-orange-500;
       background-image: url('../assets/svg/rain.svg');
       .card-content {
           @apply text-white text-lg italic;
           a {
               @apply text-white underline normal-case text-base;
+          }
+      }
+    }
+
+    .post.format-quote {
+      @apply bg-blue-300 border-blue-500;
+      background-image: url('../assets/svg/wiggle.svg');
+      .card-content {
+          @apply text-white text-lg italic;
+          a {
+              @apply text-white underline normal-case text-base;
+          }
+          blockquote {
+              border: none;
+              padding: 0;
           }
       }
     }
