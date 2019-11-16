@@ -1,0 +1,12 @@
+{% extends "partials/tease-standard.twig" %}
+
+{% block post_thumbnail %}
+    <div class="card-audio">
+        {{post.first_audio}}
+    </div>
+{% endblock %}
+{% block inner_content %}
+    <div class="card-content">
+        <a class="read-more" href="{{post.link}}">{{ fn('_e', 'Read more', 'gannet') }}</a>
+    </div>
+{% endblock %}

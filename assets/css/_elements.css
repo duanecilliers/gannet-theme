@@ -50,3 +50,9 @@ figure {
 table {
   margin: 0 0 1.5em;
   width: 100%; }
+
+blockquote {
+  border-style: solid;
+  border-left-width: 3px;
+  @apply border-gray-800 pl-3 m-0;
+}

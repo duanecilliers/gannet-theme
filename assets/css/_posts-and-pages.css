@@ -16,3 +16,54 @@
 .page-links {
   clear: both;
   margin: 0 0 1.5em; }
+
+/**
+ * Archives
+ */
+.blog {
+  .content-area {
+    .post.format-aside {
+      @apply bg-blue-300 border-blue-500;
+      background-image: url('../assets/svg/rain.svg');
+      .card-content {
+          @apply text-white text-lg italic;
+          a {
+              @apply text-white underline normal-case text-base;
+          }
+      }
+    }
+
+    .post.format-quote {
+      @apply bg-blue-300 border-blue-500;
+      background-image: url('../assets/svg/wiggle.svg');
+      .card-content {
+          @apply text-white text-lg italic;
+          a {
+              @apply text-white underline normal-case text-base;
+          }
+          blockquote {
+              border: none;
+              padding: 0;
+          }
+      }
+    }
+
+    .post.format-link {
+      a {
+        background: url('../assets/svg/zondicons/link.svg') left center no-repeat;
+        background-size: 20px;
+        padding-left: 30px;
+      }
+    }
+
+    .post.format-status {
+      .card-content {
+        @apply text-lg pl-6;
+
+        p:last-of-type {
+          @apply mb-0;
+        }
+      }
+    }
+  }
+}

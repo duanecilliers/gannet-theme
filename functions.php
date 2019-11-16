@@ -27,7 +27,10 @@ if ( !file_exists( $composer = __DIR__.'/vendor/autoload.php' ) ) {
 	);
 }
 
+// Composer
 require_once( __DIR__ . '/vendor/autoload.php' );
+
+require_once( __DIR__ . '/inc/timber/timber.php' );
 $timber = new Timber\Timber();
 
 Timber::$dirname = array( 'templates', 'views' );
@@ -83,6 +86,13 @@ if ( ! function_exists( 'gannet_setup' ) ) :
 			'gallery',
 			'caption',
 		) );
+
+		/**
+		 * Post format support
+		 */
+		add_theme_support( 'post-formats', [
+			'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat'
+		]);
 
 		// Set up the WordPress core custom background feature.
 		add_theme_support( 'custom-background', apply_filters( 'gannet_custom_background_args', array(
