@@ -4,6 +4,13 @@
 	{% if post.thumbnail.src %}
 		<div class="card-thumbnail">
 			<img src="{{post.thumbnail.src}}" />
+			<ul class="card--gallery-tiles">
+				{% for image in post.gallery_preview %}
+					<li class="{{ (loop.index == 1) ? 'active' : '' }}">
+						<a href="#"><img src="{{image}}" /></a>
+					</li>
+				{% endfor %}
+			</ul>
 		</div>
 	{% endif %}
 	<header class="card-header">

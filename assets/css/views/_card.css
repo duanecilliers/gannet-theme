@@ -8,6 +8,10 @@
         @apply shadow-lg;
     }
 
+    .card-thumbnail {
+        position: relative;
+    }
+
     .card-header,
     .card-content {
         @apply p-5;
@@ -40,6 +44,26 @@
             .card-content {
                 @apply text-gray-900;
             }
+        }
+    }
+}
+
+.card--gallery-tiles {
+    @apply list-none m-0 flex absolute bottom-0 bg-white p-1;
+    li {
+        @apply mr-1 opacity-50;
+        width: 30px;
+
+        &.active {
+            @apply opacity-100;
+        }
+
+        &:last-of-type {
+            @apply mr-0;
+        }
+
+        img {
+            height: auto;
         }
     }
 }

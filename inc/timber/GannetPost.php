@@ -4,6 +4,8 @@ class GannetPost extends Timber\Post {
 
     public $_format;
 
+    public $_first_gallery;
+
     public $_first_video;
     
     public function format() {
@@ -13,57 +15,73 @@ class GannetPost extends Timber\Post {
         return $this->_format;
     }
 
+    public function first_gallery() {
+        if (!$this->_first_gallery && $this->format() === 'gallery') {
+            $this->_first_gallery = get_post_gallery( $this->ID, false );
+        }
+        return $this->_first_gallery;
+    }
+
+    public function gallery_preview() {
+        $gallery = $this->first_gallery();
+        $preview = [];
+        if ( count( $gallery['src'] ) > 0 ) {
+            $preview = array_slice( $gallery['src'], 0, 5 );
+        }
+        return $preview;
+    }
+
     public function first_video() {
-        if ( !$this->_first_video ) {
+        if ( !$this->_first_video && $this->format() === 'video' ) {
             global $shortcode_tags;
-        // Make a copy of global shortcode tags - we'll temporarily overwrite it.
-        $theme_shortcode_tags = $shortcode_tags;
+            // Make a copy of global shortcode tags - we'll temporarily overwrite it.
+            $theme_shortcode_tags = $shortcode_tags;
 
-        // The shortcodes we're interested in.
-        $shortcode_tags = array(
-            'video' => $theme_shortcode_tags['video'],
-            'embed' => $theme_shortcode_tags['embed']
-        );
-        // Get the absurd shortcode regexp.
-        $video_regex = '#' . get_shortcode_regex() . '#i';
+            // The shortcodes we're interested in.
+            $shortcode_tags = array(
+                'video' => $theme_shortcode_tags['video'],
+                'embed' => $theme_shortcode_tags['embed']
+            );
+            // Get the absurd shortcode regexp.
+            $video_regex = '#' . get_shortcode_regex() . '#i';
 
-        // Restore global shortcode tags.
-        $shortcode_tags = $theme_shortcode_tags;
+            // Restore global shortcode tags.
+            $shortcode_tags = $theme_shortcode_tags;
 
-        $pattern_array = array( $video_regex );
+            $pattern_array = array( $video_regex );
 
-        // Get the patterns from the embed object.
-        if ( ! function_exists( '_wp_oembed_get_object' ) ) {
-            include ABSPATH . WPINC . '/class-oembed.php';
-        }
-        $oembed = _wp_oembed_get_object();
-        $pattern_array = array_merge( $pattern_array, array_keys( $oembed->providers ) );
-
-        // Or all the patterns together.
-        $pattern = '#(' . array_reduce( $pattern_array, function ( $carry, $item ) {
-            if ( strpos( $item, '#' ) === 0 ) {
-                // Assuming '#...#i' regexps.
-                $item = substr( $item, 1, -2 );
-            } else {
-                // Assuming glob patterns.
-                $item = str_replace( '*', '(.+)', $item );
+            // Get the patterns from the embed object.
+            if ( ! function_exists( '_wp_oembed_get_object' ) ) {
+                include ABSPATH . WPINC . '/class-oembed.php';
             }
-            return $carry ? $carry . ')|('  . $item : $item;
-        } ) . ')#is';
+            $oembed = _wp_oembed_get_object();
+            $pattern_array = array_merge( $pattern_array, array_keys( $oembed->providers ) );
 
-        // Simplistic parse of content line by line.
-        $lines = explode( "\n", $this->post_content );
-        foreach ( $lines as $line ) {
-            $line = trim( $line );
-            if ( preg_match( $pattern, $line, $matches ) ) {
-                if ( strpos( $matches[0], '[' ) === 0 ) {
-                    $ret = do_shortcode( $matches[0] );
+            // Or all the patterns together.
+            $pattern = '#(' . array_reduce( $pattern_array, function ( $carry, $item ) {
+                if ( strpos( $item, '#' ) === 0 ) {
+                    // Assuming '#...#i' regexps.
+                    $item = substr( $item, 1, -2 );
                 } else {
-                    $ret = wp_oembed_get( $matches[0] );
+                    // Assuming glob patterns.
+                    $item = str_replace( '*', '(.+)', $item );
                 }
-                $this->_first_video = $ret;
+                return $carry ? $carry . ')|('  . $item : $item;
+            } ) . ')#is';
+
+            // Simplistic parse of content line by line.
+            $lines = explode( "\n", $this->post_content );
+            foreach ( $lines as $line ) {
+                $line = trim( $line );
+                if ( preg_match( $pattern, $line, $matches ) ) {
+                    if ( strpos( $matches[0], '[' ) === 0 ) {
+                        $ret = do_shortcode( $matches[0] );
+                    } else {
+                        $ret = wp_oembed_get( $matches[0] );
+                    }
+                    $this->_first_video = $ret;
+                }
             }
-        }
         }
         return $this->_first_video;
     }
