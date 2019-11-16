@@ -55,5 +55,15 @@
         padding-left: 30px;
       }
     }
+
+    .post.format-status {
+      .card-content {
+        @apply text-lg pl-6;
+
+        p:last-of-type {
+          @apply mb-0;
+        }
+      }
+    }
   }
 }
