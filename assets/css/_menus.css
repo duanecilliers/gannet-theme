@@ -67,6 +67,48 @@
     @apply hidden;
   }
   .main-navigation {
-    background: red;
+    @apply w-3/4;
+    .menu {
+      @apply block;
+
+      ul {
+        @apply list-none m-0 flex flex-wrap justify-end;
+
+        > li {
+          a {
+            @apply bg-blue-300 text-white block px-2 py-1 ml-2 mb-2;
+            transition: all 0.2s ease-in-out;
+
+            &:hover {
+              @apply bg-blue-500;
+            }
+          }
+
+          &:hover {
+            .children {
+              display: block;
+            }
+          }
+        }
+      }
+
+      .children {
+        @apply hidden;
+      }
+    }
+  }
+}
+
+@screen lg {
+  .main-navigation {
+    .menu {
+      ul {
+        > li {
+          a {
+            @apply px-3 ml-4;
+          }
+        }
+      }
+    }
   }
 }
