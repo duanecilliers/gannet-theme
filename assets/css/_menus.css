@@ -24,9 +24,11 @@
     .menu {
       @apply flex justify-center my-12 mx-auto;
       max-width: 16rem;
+      
       ul {
         @apply block list-none;
       }
+
       > ul {
         @apply m-0;
       }
@@ -45,9 +47,11 @@
         @apply pb-2;
         border-width: 0 0 1px 0;
       }
+      
       li {
         @apply text-lg my-2 border-solid;
         border-color: rgba(255, 255, 255, 0.1);
+
         a {
           @apply text-white opacity-75 block;
 
@@ -66,34 +70,106 @@
   .menu-toggle {
     @apply hidden;
   }
+
   .main-navigation {
     @apply w-3/4;
+
     .menu {
       @apply block;
 
-      ul {
+      /**
+       * Dropdowns
+       */
+
+      .children {
+        @apply invisible opacity-0 absolute;
+        transition: all 0.2s ease-in-out;
+      }
+
+      > ul {
+        li {
+          @apply relative;
+        }
+        > li {
+          > .children {
+            left: -50%;
+          }
+          &:hover,
+          &.focus {
+            > .children {
+              @apply visible opacity-100;
+            }
+          }
+        }
+
+        .children > li .children {
+          top: 0;
+        }
+      }
+
+      a {
+        @apply text-gray-600;
+
+        &:hover,
+        &:focus {
+          @apply text-gray-800;
+        }
+      }
+
+      > ul {
         @apply list-none m-0 flex flex-wrap justify-end;
 
         > li {
-          a {
-            @apply bg-blue-300 text-white block px-2 py-1 ml-2 mb-2;
-            transition: all 0.2s ease-in-out;
+          @apply ml-2;
 
-            &:hover {
-              @apply bg-blue-500;
+          &.page_item_has_children {
+            @apply pr-2;
+            &::before {
+              @apply block absolute right-0 opacity-75 w-4 h-4;
+              content: '';
+              top: 10px;
+              background-image: url('../assets/svg/zondicons/cheveron-down.svg');
             }
           }
 
-          &:hover {
-            .children {
-              display: block;
+          .focus > a,
+          > a:hover {
+            @apply border-gray-400 border-solid;
+          }
+
+          > a {
+            @apply block px-2 py-1 m-0 mb-2 font-bold border-transparent;
+            transition: all 0.2s ease-in-out;
+            border-width: 0 0 1px 0;
+          }
+
+          &.current_page_item {
+            > a {
+              @apply bg-blue-300 text-white border-blue-600;
             }
           }
         }
       }
 
       .children {
-        @apply hidden;
+        @apply absolute list-none m-0 py-2 bg-white shadow-md border border-solid border-gray-300;
+        width: 200px;
+
+        > li {
+          a {
+            @apply p-2 text-center block;
+          }
+        }
+
+        li {
+          &:hover,
+          &:focus {
+            > ul {
+              @apply visible opacity-100;
+              left: 100%;
+            }
+          }
+        }
       }
     }
   }
@@ -102,10 +178,12 @@
 @screen lg {
   .main-navigation {
     .menu {
-      ul {
+      > ul {
         > li {
-          a {
-            @apply px-3 ml-4;
+          @apply ml-4;
+
+          > a {
+            @apply px-3;
           }
         }
       }
