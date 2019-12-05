@@ -82,7 +82,7 @@
        */
 
       .children {
-        @apply invisible opacity-0 absolute;
+        @apply invisible opacity-0 absolute z-50;
         transition: all 0.2s ease-in-out;
       }
 
@@ -186,6 +186,37 @@
             @apply px-3;
           }
         }
+      }
+    }
+  }
+}
+
+/**
+ * Pagination
+ */
+.pagination-block {
+  @apply my-8;
+
+  ul {
+    @apply flex list-none justify-center mx-0;
+
+    a, button, span {
+      @apply py-1 px-3 block mx-1;
+    }
+
+    button[disabled] {
+      @apply text-gray-500 cursor-not-allowed;
+    }
+
+    span.current {
+      @apply text-white bg-blue-600;
+    }
+
+    a {
+      @apply text-gray-600;
+      &:hover,
+      &:focus {
+        @apply text-gray-800;
       }
     }
   }
