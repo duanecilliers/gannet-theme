@@ -1,64 +1,192 @@
+.menu-toggle {
+  background: url('../assets/svg/zondicons/menu.svg') center center no-repeat;
+  width: 30px;
+  height: 30px;
+  outline: none;
+  @apply cursor-pointer opacity-50;
+  transition: 0.3s opacity ease-in-out;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    @apply opacity-100;
+  }
+}
+
 .main-navigation {
-  clear: both;
-  display: block;
-  float: left;
-  width: 100%; }
-  .main-navigation ul {
-    display: none;
-    list-style: none;
-    margin: 0;
-    padding-left: 0; }
-    .main-navigation ul ul {
-      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-      float: left;
-      position: absolute;
-      top: 100%;
-      left: -999em;
-      z-index: 99999; }
-      .main-navigation ul ul ul {
-        left: -999em;
-        top: 0; }
-      .main-navigation ul ul li:hover > ul,
-      .main-navigation ul ul li.focus > ul {
-        left: 100%; }
-      .main-navigation ul ul a {
-        width: 200px; }
-    .main-navigation ul li:hover > ul,
-    .main-navigation ul li.focus > ul {
-      left: auto; }
-  .main-navigation li {
-    float: left;
-    position: relative; }
-  .main-navigation a {
-    display: block;
-    text-decoration: none; }
+  .menu {
+    @apply hidden;
+  }
 
-/* Small menu. */
-.menu-toggle,
-.main-navigation.toggled ul {
-  display: block; }
+  &.toggled {
+    @apply bg-blue-600 fixed z-50 left-0 top-0 bottom-0 h-full w-full overflow-y-scroll;
 
-@media screen and (min-width: 37.5em) {
+    .menu {
+      @apply flex justify-center my-12 mx-auto;
+      max-width: 16rem;
+      
+      ul {
+        @apply block list-none;
+      }
+
+      > ul {
+        @apply m-0;
+      }
+    }
+
+    .menu-toggle {
+      position: sticky;
+      float: right;
+      background-image: url('../assets/svg/zondicons/close-white.svg');
+      top: 20px;
+      right: 16px;
+    }
+
+    .nav-menu {
+      > li {
+        @apply pb-2;
+        border-width: 0 0 1px 0;
+      }
+      
+      li {
+        @apply text-lg my-2 border-solid;
+        border-color: rgba(255, 255, 255, 0.1);
+
+        a {
+          @apply text-white opacity-75 block;
+
+          &:hover,
+          &:focus {
+            @apply opacity-100;
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+  }
+}
+
+@screen md {
   .menu-toggle {
-    display: none; }
-  .main-navigation ul {
-    display: block; } }
+    @apply hidden;
+  }
 
-.site-main .comment-navigation, .site-main
-.posts-navigation, .site-main
-.post-navigation {
-  margin: 0 0 1.5em;
-  overflow: hidden; }
+  .main-navigation {
+    @apply w-3/4;
 
-.comment-navigation .nav-previous,
-.posts-navigation .nav-previous,
-.post-navigation .nav-previous {
-  float: left;
-  width: 50%; }
+    .menu {
+      @apply block;
 
-.comment-navigation .nav-next,
-.posts-navigation .nav-next,
-.post-navigation .nav-next {
-  float: right;
-  text-align: right;
-  width: 50%; }
+      /**
+       * Dropdowns
+       */
+
+      .children {
+        @apply invisible opacity-0 absolute;
+        transition: all 0.2s ease-in-out;
+      }
+
+      > ul {
+        li {
+          @apply relative;
+        }
+        > li {
+          > .children {
+            left: -50%;
+          }
+          &:hover,
+          &.focus {
+            > .children {
+              @apply visible opacity-100;
+            }
+          }
+        }
+
+        .children > li .children {
+          top: 0;
+        }
+      }
+
+      a {
+        @apply text-gray-600;
+
+        &:hover,
+        &:focus {
+          @apply text-gray-800;
+        }
+      }
+
+      > ul {
+        @apply list-none m-0 flex flex-wrap justify-end;
+
+        > li {
+          @apply ml-2;
+
+          &.page_item_has_children {
+            @apply pr-2;
+            &::before {
+              @apply block absolute right-0 opacity-75 w-4 h-4;
+              content: '';
+              top: 10px;
+              background-image: url('../assets/svg/zondicons/cheveron-down.svg');
+            }
+          }
+
+          .focus > a,
+          > a:hover {
+            @apply border-gray-400 border-solid;
+          }
+
+          > a {
+            @apply block px-2 py-1 m-0 mb-2 font-bold border-transparent;
+            transition: all 0.2s ease-in-out;
+            border-width: 0 0 1px 0;
+          }
+
+          &.current_page_item {
+            > a {
+              @apply bg-blue-300 text-white border-blue-600;
+            }
+          }
+        }
+      }
+
+      .children {
+        @apply absolute list-none m-0 py-2 bg-white shadow-md border border-solid border-gray-300;
+        width: 200px;
+
+        > li {
+          a {
+            @apply p-2 text-center block;
+          }
+        }
+
+        li {
+          &:hover,
+          &:focus {
+            > ul {
+              @apply visible opacity-100;
+              left: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@screen lg {
+  .main-navigation {
+    .menu {
+      > ul {
+        > li {
+          @apply ml-4;
+
+          > a {
+            @apply px-3;
+          }
+        }
+      }
+    }
+  }
+}

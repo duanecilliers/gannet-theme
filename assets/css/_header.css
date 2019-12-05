@@ -1,11 +1,9 @@
 .site-header {
-    display: flex;
-    flex-direction: column;
     border-top-width: 4px;
     border-top-color: theme('colors.blue.500');
     border-bottom-width: 1px;
-    border-style: solid;
     border-bottom-color: theme('colors.gray.300');
+    @apply py-12 flex flex-row justify-between items-center border-solid;
 
     .site-title {
         font-size: theme('fontSize.2xl');
@@ -19,6 +17,7 @@
     }
 
     .site-description {
+        @apply m-0;
         font-family: theme('fontFamily.serif');
         font-style: italic;
         font-size: theme('fontSize.sm');
